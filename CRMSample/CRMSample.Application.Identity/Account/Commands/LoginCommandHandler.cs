@@ -14,12 +14,14 @@ namespace CRMSample.Application.Identity.Account.Commands
     {
         private readonly ILogger<LoginCommandHandler> _logger;
         private readonly ILoginService _loginService;
+        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
 
-        public LoginCommandHandler(ILoginService loginService, IMapper mapper, ILogger<LoginCommandHandler> logger)
+        public LoginCommandHandler(ILoginService loginService, ITokenService tokenService, IMapper mapper, ILogger<LoginCommandHandler> logger)
         {
             _logger = logger;
             _loginService = loginService;
+            _tokenService = tokenService;
             _mapper = mapper;
         }
 
@@ -39,9 +41,14 @@ namespace CRMSample.Application.Identity.Account.Commands
                 throw new CrmApiException($"Invalid username or password", HttpStatusCode.NotFound);
             }
 
-            _logger.LogInformation("User [{id}]({username}) successfully logged in", user.Id, user.UserName);
+            var accessToken = await _tokenService.CreateTokenAsync(user);
 
             var dto = _mapper.Map<ApplicationUser, ReadUserDto>(user);
+
+            dto.AccessToken = accessToken.Token;
+
+            _logger.LogInformation("User [{id}]({username}) successfully logged in", user.Id, user.UserName);
+
             return new UserViewModel(dto);
         }
     }

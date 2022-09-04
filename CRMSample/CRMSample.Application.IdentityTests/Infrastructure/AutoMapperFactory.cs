@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using CRMSample.Application.Identity.Data;
 
-namespace CRMSample.Application.IdentityTests.Account.Commands
+namespace CRMSample.Application.IdentityTests.Infrastructure
 {
     public static class AutoMapperFactory
     {

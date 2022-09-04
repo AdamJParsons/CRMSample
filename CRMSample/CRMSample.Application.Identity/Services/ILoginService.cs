@@ -12,4 +12,9 @@ namespace CRMSample.Application.Identity.Services
         Task<ApplicationUser> FindByEmailAsync(string email);
         Task<bool> ValidateCredentialsAsync(ApplicationUser user, string password);
     }
+
+    public interface ITokenService
+    {
+        Task<CreateTokenResult> CreateTokenAsync(ApplicationUser user);
+    }
 }

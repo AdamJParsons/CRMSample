@@ -11,29 +11,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{B9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{8B4FD92C-37BC-4DAA-A28D-6F1B9022E31A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Services.Identity.API", "CRMSample.Services.Identity.API\CRMSample.Services.Identity.API.csproj", "{1195BDA8-B891-4FEF-9073-D35C04E4E6CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Services.Identity.API", "CRMSample.Services.Identity.API\CRMSample.Services.Identity.API.csproj", "{1195BDA8-B891-4FEF-9073-D35C04E4E6CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Services.IdentityAPITests", "CRMSample.Services.IdentityAPITests\CRMSample.Services.IdentityAPITests.csproj", "{AF3571F8-FEA5-485E-902C-3D38EBC9218F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Services.IdentityAPITests", "CRMSample.Services.IdentityAPITests\CRMSample.Services.IdentityAPITests.csproj", "{AF3571F8-FEA5-485E-902C-3D38EBC9218F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B7FCE6E9-F2FB-4DEF-B8E9-513E7ADD4B80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Application.Identity", "CRMSample.Application.Identity\CRMSample.Application.Identity.csproj", "{F4AE33EF-86CE-4066-90E1-FD1E28498B16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Application.Identity", "CRMSample.Application.Identity\CRMSample.Application.Identity.csproj", "{F4AE33EF-86CE-4066-90E1-FD1E28498B16}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{AE51D43E-544F-41A8-A7F1-E59DBDC22B0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Domain.Identity", "CRMSample.Domain.Identity\CRMSample.Domain.Identity.csproj", "{FD296554-F70B-4EC3-8521-3C87B4F4DD89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Domain.Identity", "CRMSample.Domain.Identity\CRMSample.Domain.Identity.csproj", "{FD296554-F70B-4EC3-8521-3C87B4F4DD89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Domain.Common", "CRMSample.Domain.Common\CRMSample.Domain.Common.csproj", "{BE83C655-3EB4-4EEB-A6C8-BC8E7CF6C302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Domain.Common", "CRMSample.Domain.Common\CRMSample.Domain.Common.csproj", "{BE83C655-3EB4-4EEB-A6C8-BC8E7CF6C302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Application.Common", "CRMSample.Application.Common\CRMSample.Application.Common.csproj", "{FD23DCBA-0E58-4031-BC2C-93D7212230DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Application.Common", "CRMSample.Application.Common\CRMSample.Application.Common.csproj", "{FD23DCBA-0E58-4031-BC2C-93D7212230DD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{150FC077-6429-4FF0-8C38-61E7E8252618}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Application.IdentityTests", "CRMSample.Application.IdentityTests\CRMSample.Application.IdentityTests.csproj", "{62295997-E242-42CA-AA59-F56E55F56C25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Application.IdentityTests", "CRMSample.Application.IdentityTests\CRMSample.Application.IdentityTests.csproj", "{62295997-E242-42CA-AA59-F56E55F56C25}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F21E925F-5C12-49FF-B551-2142FD8AFA4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Infrastructure.Identity", "CRMSample.Infrastructure.Identity\CRMSample.Infrastructure.Identity.csproj", "{281CCC8B-D821-4AF5-82F9-61FD96C60C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CRMSample.Infrastructure.Identity", "CRMSample.Infrastructure.Identity\CRMSample.Infrastructure.Identity.csproj", "{281CCC8B-D821-4AF5-82F9-61FD96C60C4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRMSample.Infrastructure.Common", "CRMSample.Infrastructure.Common\CRMSample.Infrastructure.Common.csproj", "{0C840CFE-4E92-401A-B162-F826AEDA5F65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,10 @@ Global
 		{281CCC8B-D821-4AF5-82F9-61FD96C60C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{281CCC8B-D821-4AF5-82F9-61FD96C60C4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{281CCC8B-D821-4AF5-82F9-61FD96C60C4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C840CFE-4E92-401A-B162-F826AEDA5F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C840CFE-4E92-401A-B162-F826AEDA5F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C840CFE-4E92-401A-B162-F826AEDA5F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C840CFE-4E92-401A-B162-F826AEDA5F65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{62295997-E242-42CA-AA59-F56E55F56C25} = {150FC077-6429-4FF0-8C38-61E7E8252618}
 		{F21E925F-5C12-49FF-B551-2142FD8AFA4F} = {5A9D75FB-1184-455B-AA65-7636E916A80E}
 		{281CCC8B-D821-4AF5-82F9-61FD96C60C4E} = {F21E925F-5C12-49FF-B551-2142FD8AFA4F}
+		{0C840CFE-4E92-401A-B162-F826AEDA5F65} = {F21E925F-5C12-49FF-B551-2142FD8AFA4F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B16C9C43-27F2-4D3F-B1CD-895537041877}

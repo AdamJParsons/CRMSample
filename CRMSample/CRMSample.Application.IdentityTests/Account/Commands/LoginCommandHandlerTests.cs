@@ -1,5 +1,7 @@
 ﻿using CRMSample.Application.Common.Exceptions;
 using CRMSample.Application.Identity.Account.Commands;
+using CRMSample.Application.Identity.Services;
+using CRMSample.Application.IdentityTests.Infrastructure;
 using CRMSample.Domain.Identity.Entities.Account;
 using CRMSample.Domain.Identity.ViewModels.Account;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -20,7 +22,7 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
             // arrange
             LoginCommand command = new LoginCommand(Guid.NewGuid().ToString(), "password");
 
-            LoginCommandHandler sut = new LoginCommandHandler(LoginService, Mapper, NullLogger<LoginCommandHandler>.Instance);
+            LoginCommandHandler sut = new LoginCommandHandler(LoginService, TokenService, Mapper, NullLogger<LoginCommandHandler>.Instance);
 
             // act / assert
             await Assert.ThrowsAsync<CrmApiException>(() => sut.Handle(command, CancellationToken.None));
@@ -38,7 +40,7 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
 
             LoginCommand command = new LoginCommand(Guid.NewGuid().ToString(), "password");
 
-            LoginCommandHandler sut = new LoginCommandHandler(LoginService, Mapper, NullLogger<LoginCommandHandler>.Instance);
+            LoginCommandHandler sut = new LoginCommandHandler(LoginService, TokenService, Mapper, NullLogger<LoginCommandHandler>.Instance);
 
             // act / assert
             await Assert.ThrowsAsync<CrmApiException>(() => sut.Handle(command, CancellationToken.None));
@@ -48,7 +50,11 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
         public async Task GivenValidRequest_WhenUserExistsAndPasswordIsCorrect_ThenUserViewModelIsReturned()
         {
             // arrange
-            ApplicationUser fakeUser = new ApplicationUser();
+            ApplicationUser fakeUser = new ApplicationUser
+            {
+                Email = TestConstants.TestUserEmailAddress,
+                UserName = TestConstants.TestUserName
+            };
 
             MockLoginService
                 .Setup(x => x.FindByEmailAsync(It.IsAny<string>()))
@@ -58,9 +64,15 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
                 .Setup(x => x.ValidateCredentialsAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(true));
 
+            CreateTokenResult fakeToken = new CreateTokenResult(TestConstants.AccessToken);
+
+            MockTokenService
+                .Setup(x => x.CreateTokenAsync(It.IsAny<ApplicationUser>()))
+                .Returns(Task.FromResult(fakeToken));
+
             LoginCommand command = new LoginCommand(Guid.NewGuid().ToString(), "password");
 
-            LoginCommandHandler sut = new LoginCommandHandler(LoginService, Mapper, NullLogger<LoginCommandHandler>.Instance);
+            LoginCommandHandler sut = new LoginCommandHandler(LoginService, TokenService, Mapper, NullLogger<LoginCommandHandler>.Instance);
 
             // act
             var response = await sut.Handle(command, CancellationToken.None);
@@ -69,6 +81,9 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
             response.Should().NotBeNull();
             response.Should().BeOfType<UserViewModel>();
             response.User.Should().NotBeNull();
+            response.User.AccessToken.Should().Be(TestConstants.AccessToken);
+            response.User.EmailAddress.Should().Be(TestConstants.TestUserEmailAddress);
+            response.User.UserName.Should().Be(TestConstants.TestUserName);
         }
     }
 }

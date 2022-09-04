@@ -1,4 +1,6 @@
 ﻿using CRMSample.Application.Identity.Account.Commands;
+using CRMSample.Domain.Common.ViewModels;
+using CRMSample.Domain.Identity.ViewModels.Account;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +19,11 @@ namespace CRMSample.Services.Identity.API.Controllers
             _logger = logger;
         }
 
+        // POST:    api/v1/Account/Login/{command}
+        [HttpPost("Login")]
+        [ProducesResponseType(typeof(UserViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorViewModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorViewModel), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command)
         {
             _logger.LogInformation("Attempting login for user [{emailAddress}]", command.EmailAddress);

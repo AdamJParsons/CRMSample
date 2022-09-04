@@ -13,7 +13,10 @@ namespace CRMSample.Application.Identity.Data
     {
         public MappingProfile()
         {
-            CreateMap<ApplicationUser, ReadUserDto>();
+            CreateMap<ApplicationUser, ReadUserDto>()
+                .ForMember(
+                    dest => dest.EmailAddress,
+                    opts => opts.MapFrom(src => src.Email));
         }
     }
 }
