@@ -2,8 +2,10 @@ using CRMSample.Application.Admin.Data;
 using CRMSample.Application.Admin.Services;
 using CRMSample.Application.Common.Services;
 using CRMSample.Infrastructure.Admin.Services;
+using CRMSample.Infrastructure.Common.Faults;
 using CRMSample.Infrastructure.Common.Services;
 using MassTransit;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Prometheus;
 using Serilog;
 
@@ -35,9 +37,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add the event bus (MassTransit using RabbitMQ or Azure Service Bus)
 builder.Services.AddEventBus(builder.Configuration, cfg => { });
 
+// Add the AppInsights telemetry to report app metrics to Azure
 builder.Services.AddApplicationInsightsTelemetry();
+
+// Add fault policy handler
+builder.Services.TryAddSingleton<ClientPolicy>();
 
 var app = builder.Build();
 
