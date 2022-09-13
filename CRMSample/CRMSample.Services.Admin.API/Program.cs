@@ -49,9 +49,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var ctrl = app.Services.GetRequiredService<IBusControl>();
-await ctrl.StartAsync();
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();

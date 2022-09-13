@@ -1,15 +1,15 @@
-﻿using CRMSample.Application.Identity.Account.Commands.RegisterUser;
-using CRMSample.Infrastructure.Common.Events.CreateUser;
+﻿using CRMSample.Application.Common.Events.CreateUser;
+using CRMSample.Application.Identity.Account.Commands.RegisterUser;
 using MassTransit;
 using MediatR;
 
 namespace CRMSample.Services.Identity.API.Consumers
 {
-    internal class CreateUserConsumer : IConsumer<RegisterUserRequest>
+    internal class RegisterUserConsumer : IConsumer<RegisterUserRequest>
     {
         private readonly IMediator _mediator;
 
-        public CreateUserConsumer(IMediator mediator)
+        public RegisterUserConsumer(IMediator mediator)
         {
             _mediator = mediator;
         }

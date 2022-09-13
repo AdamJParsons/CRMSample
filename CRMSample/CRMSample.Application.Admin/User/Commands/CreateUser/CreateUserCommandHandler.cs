@@ -23,12 +23,14 @@ namespace CRMSample.Application.Admin.User.Commands.CreateUser
         private readonly IMapper _mapper;
         private readonly IDateTime _dateTime;
         private readonly IRequestClient<RegisterUserRequest> _registerUserClient;
+        private readonly IBusControl _bus;
 
         public CreateUserCommandHandler(
             IUserService userService,
             IMapper mapper,
             IDateTime dateTime,
             IRequestClient<RegisterUserRequest> registerUserClient,
+            IBusControl bus,
             ILogger<CreateUserCommandHandler> logger)
         {
             _logger = logger;
@@ -36,6 +38,7 @@ namespace CRMSample.Application.Admin.User.Commands.CreateUser
             _mapper = mapper;
             _dateTime = dateTime;
             _registerUserClient = registerUserClient;
+            _bus = bus;
         }
 
         public async Task<UserViewModel> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -83,22 +86,20 @@ namespace CRMSample.Application.Admin.User.Commands.CreateUser
             _logger.LogInformation("User [{id}]({username}) created successfully", user.Id, user.UserName);
 
             // Register the user with the identity layer
-            var registerUserRequest = new
+            var registerUserResponse = await _registerUserClient.GetResponse<RegisterUserResponse>(new
             {
-                user.IntegrationId,
-                user.UserName,
-                request.Password,
-                request.ConfirmPassword,
+                IntegrationId = user.IntegrationId,
+                UserName = user.UserName,
+                Password = request.Password,
+                ConfirmPassword = request.ConfirmPassword,
                 Email = request.EmailAddress,
                 ConfirmEmail = request.ConfirmEmailAddress
-            };
+            }, cancellationToken);
 
-            var registerUserResponse = await _registerUserClient.GetResponse<RegisterUserResponse>(registerUserRequest, cancellationToken);
-
-            // todo: what if the operation fails?
+            //// todo: what if the operation fails?
             if (registerUserResponse != null)
             {
-                RegisterUserResponse response = registerUserResponse.Message;
+                var response = registerUserResponse.Message;
                 if (!response.IsSuccess)
                 {
                     // handle the error(s) here

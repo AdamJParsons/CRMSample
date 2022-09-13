@@ -35,7 +35,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 builder.Services.AddEventBus(builder.Configuration, cfg =>
 {
-    cfg.AddConsumersFromNamespaceContaining<CreateUserConsumer>();
+    cfg.AddConsumer<RegisterUserConsumer>();
 });
 
 builder.Services.AddControllers();
@@ -70,8 +70,5 @@ app.UseHttpMetrics();
 
 // setup healthchecks
 app.UseCustomHealthChecks();
-
-var ctrl = app.Services.GetRequiredService<IBusControl>();
-await ctrl.StartAsync();
 
 app.Run();
