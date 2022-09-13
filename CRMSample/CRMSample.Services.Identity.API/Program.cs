@@ -1,22 +1,12 @@
 using Serilog;
-using MediatR;
-using MediatR.Pipeline;
-using CRMSample.Application.Identity.Account.Commands;
-using CRMSample.Infrastructure.Common.Mediatr;
 using CRMSample.Application.Identity.Services;
 using CRMSample.Infrastructure.Identity.Services;
-using CRMSample.Domain.Identity.Entities.Account;
-using Microsoft.AspNetCore.Identity;
-using CRMSample.Infrastructure.Identity.Persistence;
-using Microsoft.EntityFrameworkCore;
 using CRMSample.Application.Identity.Data;
-using k8s.KubeConfigModels;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Prometheus;
-using HealthChecks.UI.Client;
-using Microsoft.Extensions.Hosting;
-using CRMSample.Infrastructure.Common.Settings;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MassTransit;
+using CRMSample.Services.Identity.API.Consumers;
+using CRMSample.Application.Common.Services;
+using CRMSample.Infrastructure.Common.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,16 +26,24 @@ builder.Services.AddCustomIdentity();
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddTransient<ILoginService, EFLoginService>();
 builder.Services.AddTransient<ITokenService, JwtTokenService>();
+builder.Services.AddTransient<IDateTime, MachineDateTime>();
 
 // Add MediatR pipeline
 builder.Services.AddMediator();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
+builder.Services.AddEventBus(builder.Configuration, cfg =>
+{
+    cfg.AddConsumersFromNamespaceContaining<CreateUserConsumer>();
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 
@@ -72,5 +70,8 @@ app.UseHttpMetrics();
 
 // setup healthchecks
 app.UseCustomHealthChecks();
+
+var ctrl = app.Services.GetRequiredService<IBusControl>();
+await ctrl.StartAsync();
 
 app.Run();

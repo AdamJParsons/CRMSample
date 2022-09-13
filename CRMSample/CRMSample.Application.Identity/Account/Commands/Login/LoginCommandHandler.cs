@@ -7,10 +7,12 @@ using CRMSample.Domain.Identity.ViewModels.Account;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Net;
+using System.Runtime.CompilerServices;
 
-namespace CRMSample.Application.Identity.Account.Commands
+[assembly: InternalsVisibleTo("CRMSample.Application.IdentityTests")]
+namespace CRMSample.Application.Identity.Account.Commands.Login
 {
-    public class LoginCommandHandler : IRequestHandler<LoginCommand, UserViewModel>
+    internal class LoginCommandHandler : IRequestHandler<LoginCommand, UserViewModel>
     {
         private readonly ILogger<LoginCommandHandler> _logger;
         private readonly ILoginService _loginService;
@@ -47,9 +49,11 @@ namespace CRMSample.Application.Identity.Account.Commands
 
             dto.AccessToken = accessToken.Token;
 
+            var viewModel = new UserViewModel(dto);
+
             _logger.LogInformation("User [{id}]({username}) successfully logged in", user.Id, user.UserName);
 
-            return new UserViewModel(dto);
+            return viewModel;
         }
     }
 }

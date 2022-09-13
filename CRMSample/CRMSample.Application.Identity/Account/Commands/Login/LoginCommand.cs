@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRMSample.Application.Identity.Account.Commands
+namespace CRMSample.Application.Identity.Account.Commands.Login
 {
     public class LoginCommand : IRequest<UserViewModel>
     {

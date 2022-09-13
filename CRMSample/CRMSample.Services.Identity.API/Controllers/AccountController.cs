@@ -1,4 +1,4 @@
-﻿using CRMSample.Application.Identity.Account.Commands;
+﻿using CRMSample.Application.Identity.Account.Commands.Login;
 using CRMSample.Domain.Common.ViewModels;
 using CRMSample.Domain.Identity.ViewModels.Account;
 using MediatR;

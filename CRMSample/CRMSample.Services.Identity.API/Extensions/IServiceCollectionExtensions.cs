@@ -1,15 +1,15 @@
-﻿using CRMSample.Application.Identity.Account.Commands;
-using CRMSample.Domain.Identity.Entities.Account;
+﻿using CRMSample.Domain.Identity.Entities.Account;
 using CRMSample.Infrastructure.Common.Mediatr;
 using CRMSample.Infrastructure.Identity.Persistence;
 using MediatR.Pipeline;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using CRMSample.Application.Identity.Account.Commands.Login;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class IServiceProviderExtensions
+    public static class IServiceCollectionExtensions
     {
         public static void AddCustomIdentity(this IServiceCollection services)
         {

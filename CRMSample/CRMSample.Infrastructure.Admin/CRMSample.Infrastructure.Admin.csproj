@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CRMSample.Application.Admin\CRMSample.Application.Admin.csproj" />
+    <ProjectReference Include="..\CRMSample.Infrastructure.Common\CRMSample.Infrastructure.Common.csproj" />
+  </ItemGroup>
+
+</Project>

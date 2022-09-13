@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class WebApllicationExtensions
+    public static class WebApplicationExtensions
     {
         public static async Task UseSeedDataAsync(this WebApplication app)
         {
@@ -30,21 +30,5 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
             }
         }
-
-        public static void UseCustomHealthChecks(this WebApplication app)
-        {
-            app.UseHealthChecksUI(config => config.UIPath = "/hc-ui");
-            app.MapHealthChecks("/hc/live", new HealthCheckOptions()
-            {
-                Predicate = _ => false,
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-            app.MapHealthChecks("/hc/ready", new HealthCheckOptions()
-            {
-                Predicate = (check) => check.Tags.Contains("ready"),
-                ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-        }
     }
-
 }

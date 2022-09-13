@@ -27,6 +27,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CRMSample.Application.Common\CRMSample.Application.Common.csproj" />
 		<ProjectReference Include="..\CRMSample.Application.Identity\CRMSample.Application.Identity.csproj" />
+		<ProjectReference Include="..\CRMSample.Application.Tests.Common\CRMSample.Application.Tests.Common.csproj" />
 	</ItemGroup>
 
 </Project>

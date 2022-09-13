@@ -1,5 +1,5 @@
 ﻿using CRMSample.Application.Common.Exceptions;
-using CRMSample.Application.Identity.Account.Commands;
+using CRMSample.Application.Identity.Account.Commands.Login;
 using CRMSample.Application.Identity.Services;
 using CRMSample.Application.IdentityTests.Infrastructure;
 using CRMSample.Domain.Identity.Entities.Account;
@@ -53,7 +53,8 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
             ApplicationUser fakeUser = new ApplicationUser
             {
                 Email = TestConstants.TestUserEmailAddress,
-                UserName = TestConstants.TestUserName
+                UserName = TestConstants.TestUserName,
+                IntegrationId = new Guid(TestConstants.TestUserIntegrationId)
             };
 
             MockLoginService
@@ -81,6 +82,7 @@ namespace CRMSample.Application.IdentityTests.Account.Commands
             response.Should().NotBeNull();
             response.Should().BeOfType<UserViewModel>();
             response.User.Should().NotBeNull();
+            response.User.IntegrationId.Should().Be(TestConstants.TestUserIntegrationId);
             response.User.AccessToken.Should().Be(TestConstants.AccessToken);
             response.User.EmailAddress.Should().Be(TestConstants.TestUserEmailAddress);
             response.User.UserName.Should().Be(TestConstants.TestUserName);

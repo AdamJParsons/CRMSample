@@ -1,4 +1,5 @@
-﻿using CRMSample.Application.Identity.Services;
+﻿using CRMSample.Application.Common.Services;
+using CRMSample.Application.Identity.Services;
 using CRMSample.Domain.Identity.Entities.Account;
 using CRMSample.Infrastructure.Common.Settings;
 using Microsoft.AspNetCore.Identity;
@@ -19,11 +20,16 @@ namespace CRMSample.Infrastructure.Identity.Services
     {
         private readonly AuthenticationSettings _configuration;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IDateTime _dateTime;
 
-        public JwtTokenService(AuthenticationSettings configuration, UserManager<ApplicationUser> userManager)
+        public JwtTokenService(
+            AuthenticationSettings configuration, 
+            UserManager<ApplicationUser> userManager, 
+            IDateTime dateTime)
         {
             _configuration = configuration;
             _userManager = userManager;
+            _dateTime = dateTime;
         }
 
         public async Task<CreateTokenResult> CreateTokenAsync(ApplicationUser user)
@@ -74,7 +80,8 @@ namespace CRMSample.Infrastructure.Identity.Services
                 Issuer = _configuration.Issuer,
                 Audience = _configuration.Audience,
                 Subject = claims,
-                Expires = DateTime.UtcNow.AddMinutes(_configuration.ExpiryTimeInMinutes),
+                NotBefore = _dateTime.Now,
+                Expires = _dateTime.Now.AddMinutes(_configuration.ExpiryTimeInMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 

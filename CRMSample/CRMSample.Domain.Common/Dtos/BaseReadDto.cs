@@ -13,4 +13,4 @@ namespace CRMSample.Domain.Common.Dtos
         public DateTimeOffset DateModified { get; set; }
         public DateTimeOffset? DateDeleted { get; set; }
     }
-}
+    }

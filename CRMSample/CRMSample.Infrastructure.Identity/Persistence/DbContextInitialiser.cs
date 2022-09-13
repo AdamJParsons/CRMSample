@@ -38,6 +38,7 @@ namespace CRMSample.Infrastructure.Identity.Persistence
             {
                 adminUser = new ApplicationUser
                 {
+                    IntegrationId = new Guid("7E535C91-90C5-47FE-B468-1B598B28E4A2"), 
                     Email = "administrator@localhost",
                     NormalizedEmail = "administrator@localhost".ToUpperInvariant(),
                     UserName = "administrator@localhost",

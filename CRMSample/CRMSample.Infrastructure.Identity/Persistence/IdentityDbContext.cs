@@ -1,4 +1,5 @@
-﻿using CRMSample.Domain.Identity.Entities.Account;
+﻿using CRMSample.Application.Common.Services;
+using CRMSample.Domain.Identity.Entities.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,11 @@ namespace CRMSample.Infrastructure.Identity.Persistence
 {
     public class IdentityDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
     {
-        public IdentityDbContext(DbContextOptions options) : base(options)
+        private readonly IDateTime _dateTime;
+
+        public IdentityDbContext(DbContextOptions options, IDateTime dateTime) : base(options)
         {
+            _dateTime = dateTime;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

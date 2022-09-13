@@ -9,5 +9,6 @@ namespace CRMSample.Domain.Identity.Entities.Account
 {
     public class ApplicationUser : IdentityUser<long>
     {
+        public Guid IntegrationId { get; set; }
     }
 }
