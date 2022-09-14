@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\CRMSample.Infrastructure.Admin\CRMSample.Infrastructure.Admin.csproj" />
+	  <ProjectReference Include="..\CRMSample.Infrastructure.Identity\CRMSample.Infrastructure.Identity.csproj" />
 	</ItemGroup>
 
 </Project>

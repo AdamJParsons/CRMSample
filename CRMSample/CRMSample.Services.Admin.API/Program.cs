@@ -4,7 +4,9 @@ using CRMSample.Application.Common.Services;
 using CRMSample.Infrastructure.Admin.Services;
 using CRMSample.Infrastructure.Common.Faults;
 using CRMSample.Infrastructure.Common.Services;
+using CRMSample.Infrastructure.Identity.Persistence;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Prometheus;
 using Serilog;
@@ -18,7 +20,7 @@ builder.Host.AddSerilog();
 builder.Services.AddCustomHealthCheck(builder.Configuration, "CRM Sample - Admin API");
 
 // Add DbContext
-builder.Services.AddCustomDbContext();
+builder.Services.AddCustomDbContext(builder.Configuration);
 
 // Add Authentication
 builder.Services.AddAuthentication(builder.Configuration);

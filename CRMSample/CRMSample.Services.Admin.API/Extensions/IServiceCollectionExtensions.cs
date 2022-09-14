@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CRMSample.Infrastructure.Admin.Persistence;
 using CRMSample.Application.Admin.User.Commands.CreateUser;
+using CRMSample.Infrastructure.Common.Settings;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -23,15 +24,23 @@ namespace Microsoft.Extensions.DependencyInjection
             //.AddDefaultTokenProviders();
         }
 
-        public static void AddCustomDbContext(this IServiceCollection services)
+        public static void AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            //builder.Services.AddDbContext<IdentityDbContext>(options =>
-            //    options.UseSqlServer(
-            //        builder.Configuration.GetConnectionString("DatabaseConnectionString"),
-            //        b => b.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName)));
+            var databaseSettings = new DatabaseSettings();
+            configuration.Bind(nameof(DatabaseSettings), databaseSettings);
 
-            services.AddDbContext<AdminDbContext>(options =>
-                options.UseInMemoryDatabase("CRM_SAMPLE_ADMIN"));
+            if (databaseSettings != null && databaseSettings.UseInMemoryDatabase)
+            {
+                services.AddDbContext<AdminDbContext>(options =>
+                    options.UseInMemoryDatabase("CRM_SAMPLE_ADMIN"));
+            }
+            else
+            {
+                services.AddDbContext<AdminDbContext>(options =>
+                    options.UseSqlServer(
+                        configuration.GetConnectionString("DatabaseConnectionString"),
+                        b => b.MigrationsAssembly(typeof(AdminDbContext).Assembly.FullName)));
+            }
         }
 
         public static void AddMediator(this IServiceCollection services)

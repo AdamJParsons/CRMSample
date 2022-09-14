@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using CRMSample.Application.Identity.Account.Commands.Login;
+using CRMSample.Infrastructure.Common.Settings;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -24,15 +25,23 @@ namespace Microsoft.Extensions.DependencyInjection
             .AddDefaultTokenProviders();
         }
 
-        public static void AddCustomDbContext(this IServiceCollection services)
+        public static void AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            //builder.Services.AddDbContext<IdentityDbContext>(options =>
-            //    options.UseSqlServer(
-            //        builder.Configuration.GetConnectionString("DatabaseConnectionString"),
-            //        b => b.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName)));
+            var databaseSettings = new DatabaseSettings();
+            configuration.Bind(nameof(DatabaseSettings), databaseSettings);
 
-            services.AddDbContext<IdentityDbContext>(options =>
-                options.UseInMemoryDatabase("CRM_SAMPLE_AUTH"));
+            if(databaseSettings != null && databaseSettings.UseInMemoryDatabase)
+            {
+                services.AddDbContext<IdentityDbContext>(options =>
+                    options.UseInMemoryDatabase("CRM_SAMPLE_AUTH"));
+            }
+            else
+            {
+                services.AddDbContext<IdentityDbContext>(options =>
+                    options.UseSqlServer(
+                        configuration.GetConnectionString("DatabaseConnectionString"),
+                        b => b.MigrationsAssembly(typeof(IdentityDbContext).Assembly.FullName)));
+            }
         }
 
         public static void AddMediator(this IServiceCollection services)

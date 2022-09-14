@@ -16,6 +16,11 @@ namespace Microsoft.Extensions.DependencyInjection
                     // seed data, if required
                     var dbContext = services.GetRequiredService<AdminDbContext>();
 
+                    if (app.Environment.IsDevelopment())
+                    {
+                        await dbContext.Database.EnsureCreatedAsync();
+                    }
+
                     await DbContextInitialiser.InitialiseAsync(dbContext);
                 }
                 catch (Exception ex)

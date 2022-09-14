@@ -3,6 +3,7 @@ using CRMSample.Infrastructure.Identity.Persistence;
 using Microsoft.AspNetCore.Identity;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -17,8 +18,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 try
                 {
                     // seed data, if required
+                    var dbContext = services.GetRequiredService<IdentityDbContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole<long>>>();
+
+                    if (app.Environment.IsDevelopment())
+                    {
+                        await dbContext.Database.EnsureCreatedAsync();
+                    }
 
                     await DbContextInitialiser.InitialiseAsync(userManager, roleManager);
                 }

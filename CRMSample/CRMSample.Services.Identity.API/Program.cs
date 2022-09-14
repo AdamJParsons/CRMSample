@@ -17,7 +17,7 @@ builder.Host.AddSerilog();
 builder.Services.AddCustomHealthCheck(builder.Configuration, "CRM Sample - Identity API");
 
 // Add DbContext
-builder.Services.AddCustomDbContext();
+builder.Services.AddCustomDbContext(builder.Configuration);
 
 // Add Identity
 builder.Services.AddCustomIdentity();
